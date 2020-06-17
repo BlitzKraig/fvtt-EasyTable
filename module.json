@@ -2,7 +2,7 @@
   "name": "easytable",
   "title": "EasyTable",
   "description": "Creates simple text-based rollable tables from CSV data",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Blitzkraig",
   "scripts": ["./easytable.js"],
   "styles": ["./styles.css"],

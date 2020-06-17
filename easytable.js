@@ -19,7 +19,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
               let title = html.find('[name="tableTitle"]').val();
               let csvData = html.find('[name="csv"]').val();
 
-              await EasyTable.generate(title, csvData)
+              await EasyTable.generateTable(title, csvData)
               console.log('EasyTable created');
             }
           },
