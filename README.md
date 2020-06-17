@@ -2,7 +2,12 @@
 
 Simple text-only rollable tables from CSV data
 
-**Version 0.1**
+**Version 0.2**
+Added the ability to change the separator character.
+
+e.g.
+Cool, nice table|This table, it's great|wow
+With the separator set to "|", this would allow you to have commas in your table entries.
 
 Manifest: `https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/module.json`
 
