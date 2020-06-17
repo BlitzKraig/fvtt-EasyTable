@@ -1,13 +1,11 @@
 # EasyTable
 
-Simple text-only rollable tables from CSV data
+Simple text-only rollable tables from CSV (or any-SV) data
 
-**Version 0.2**
-Added the ability to change the separator character.
-
-e.g.
-Cool, nice table|This table, it's great|wow
-With the separator set to "|", this would allow you to have commas in your table entries.
+**Version 1.0.0**
+*Added the ability to change the separator character.
+*Updated settings commits to remember the previously used separator
+*Squashed some bugs
 
 Manifest: `https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/module.json`
 
@@ -15,5 +13,5 @@ Manifest: `https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/mo
 ## Usage Instructions
 
 1. Go to the Rollable Tables tab in FVTT, click the New EasyTable button.
-2. Fill in the table title and copy/paste your comma-separated values
+2. Fill in the table title, description(optional) and copy/paste your comma-separated values
 3. Generate!
