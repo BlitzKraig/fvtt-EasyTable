@@ -3,9 +3,9 @@
 Simple text-only rollable tables from CSV (or any-SV) data
 
 **Version 1.0.0**
-*Added the ability to change the separator character.
-*Updated settings commits to remember the previously used separator
-*Squashed some bugs
+* Added the ability to change the separator character.
+* Updated settings commits to remember the previously used separator
+* Squashed some bugs
 
 Manifest: `https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/module.json`
 
