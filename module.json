@@ -8,7 +8,7 @@
   "styles": ["./styles.css"],
   "packs": [],
   "minimumCoreVersion": "0.5.3",
-  "compatibleCoreVersion": "0.6.2",
+  "compatibleCoreVersion": "0.6.4",
   "url": "https://github.com/BlitzKraig/fvtt-EasyTable",
   "manifest": "https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/module.json",
   "download": "https://github.com/BlitzKraig/fvtt-EasyTable/archive/master.zip"
