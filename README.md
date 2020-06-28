@@ -11,8 +11,12 @@ EasyTable will automatically set the roll formula to 1d{number of entries}, and 
 ## Usage Instructions
 
 1. Go to the Rollable Tables tab in FVTT, click the New EasyTable button.
-2. Fill in the table title, description(optional) and copy/paste your comma-separated values
+2. Fill in the table title, description(optional) and copy/paste your comma-separated values *
 3. Generate!
+
+*You can now weight your table entries with curly braces
+
+eg. `val1,val2{2},val3,val4{4}` will generate a 1d8 table where val2 is selected on a roll of 2 or 3, and val4 is selected on a roll of 5-8
 
 <img title="" src="./docs/easytabledemo.gif" alt="" data-align="inline">
 
