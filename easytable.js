@@ -62,18 +62,20 @@ Hooks.on("renderSidebarTab", async (app, html) => {
 })
 
 Hooks.on("init", () => {
+    let etSettings = {
+        title: 'EasyTable',
+        description: 'An easy table. Optional {} denotes weight',
+        data: 'val1,val2{2},val3',
+        separator: ','
+    };
     game.settings.register("easytable", "tableSettings", {
         name: "Easytable Default Settings",
         scope: "world",
         config: false,
-        default: {
-            title: 'EasyTable',
-            description: 'An easy table',
-            data: 'val1,val2,val3',
-            separator: ','
-        }
-    })
-})
+        default: etSettings
+    });
+    game.settings.set("easytable", "tableSettings", etSettings);
+});
 
 
 
@@ -82,22 +84,26 @@ class EasyTable {
 
         let resultsArray = [];
         let csvElements = csvData.split(separator);
-        csvElements.forEach((value, i) => {
+        csvElements.forEach((csvElement, i) => {
+            let [text, weight] = csvElement.split('{');
+            if (weight) {
+                weight = weight.split('}')[0];
+            }
+            console.log(weight);
             resultsArray.push({
                 "type": 0,
-                "text": value,
-                "weight": 1,
-                "range": [i + 1, i + 1],
+                "text": text,
+                "weight": weight || 1,
                 "drawn": false
             });
         });
-        await RollTable.create({
+        let table = await RollTable.create({
             name: title,
             description: description,
             results: resultsArray,
-            formula: `1d${csvElements.length}`,
             replacement: true,
             displayRoll: true
         });
+        await table.normalize();
     }
 }
