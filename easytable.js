@@ -13,8 +13,8 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                     title: "EasyTable Table Paste Mode",
                     content: `<div> 
                     <div class="form-group"><div>Table Title</div><input type='text' name="tableTitle" value="${title}"/></div>
-                    <div class="form-group"><div>Table Description</div><input type='text' name="tableDescription" value="${description}"/></div>
-                    <div class="form-group" title="Paste your table data here"><div>Table Data</div><textarea name="tableData">1\tValue1\n2\tValue2\n3-4\tValue3</textarea></div>
+                    <div class="form-group"><div>Table Description</div><input type='text' name="tableDescription" value=""/></div>
+                    <div class="form-group" title="Paste your table data here"><div>Table Data - DO NOT include a table header here. Set the title above.</div><textarea name="tableData"></textarea></div>
                     <hr/>
                 </div>
                 `,
@@ -177,25 +177,50 @@ class EasyTable {
     static async generateTablePastedData(title, description, tableData) {
 
         let resultsArray = [];
+        let processed = [];
         let tableEntries = tableData.split(/[\r\n]+/);
         tableEntries.forEach((tableEntry, i) => {
+            if (processed[i]) {
+                return;
+            }
+            processed[i] = true;
+            tableEntry = tableEntry.trim();
+            if (tableEntry.length < 1) {
+                return;
+            }
             let weight, text;
             if (tableEntry.match(/^\d/)) {
                 [weight, text] = tableEntry.split(/(?<=^\S+)\s/)
                 try {
                     if (weight.match(/[\d]+-[\d]+/)) {
-                        console.log("TEST");
-                        weight = weight.split('-')[1] - weight.split('-')[0] + 1;
+                        let [beginRange, endRange] = weight.split('-');
+                        if (endRange === '00') {
+                            endRange = '100'
+                        }
+                        weight = endRange - beginRange + 1;
                     } else if (weight.match(/[\d]+–[\d]+/)) { // Not actually a hyphen...
-                        weight = weight.split('–')[1] - weight.split('–')[0] + 1;
+                        let [beginRange, endRange] = weight.split('–');
+                        if (endRange === '00') {
+                            endRange = '100'
+                        }
+                        weight = endRange - beginRange + 1;
                     } else {
                         weight = 1;
                     }
+                    if (!text) {
+                        // Likely in a linebreak-based table
+                        while (!text && i < tableEntries.length - 1) {
+                            let index = ++i;
+                            processed[index] = true;
+                            text = tableEntries[index].trim();
+                        }
+                    }
                 } catch (e) {
+                    console.log(e);
                     weight = 1;
                 }
             }
-            if(!text){
+            if (!text) {
                 text = "TEXT MISSING";
             }
             resultsArray.push({
