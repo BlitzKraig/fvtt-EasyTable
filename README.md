@@ -33,6 +33,8 @@ As long as the table has the dice roll in column 1 and the value in column 2, yo
 3. Fill in the table title, description(optional) and copy/paste some data from a table (e.g The random misfortunes table on https://www.5esrd.com/spellcasting/alternate-magic-rules/ritual-magic/#Non-Ritual_Casters)
 3. Generate!
 
+<img title="" src="./docs/alternateinput.gif" alt="" data-align="inline">
+
 ## Manifest
 
 `https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/module.json`
