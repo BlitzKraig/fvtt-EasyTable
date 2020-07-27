@@ -1,5 +1,10 @@
 # EasyTable
 
+![EasyTable Release](https://github.com/BlitzKraig/fvtt-EasyTable/workflows/EasyTable%20Release/badge.svg)
+![Latest Release Download Count](https://img.shields.io/github/downloads/BlitzKraig/fvtt-EasyTable/latest/easytable-release.zip)
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q01YIEJ)
+
 Simple text-only rollable tables from CSV (or any-SV) data
 
 Useful for populating a table with character names, prefixes for TokenMold or any other textual data.

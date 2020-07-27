@@ -1,0 +1,26 @@
+name: EasyTable Release
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get Version
+      shell: bash
+      id: get-version
+      run: echo "::set-output name=version::$(node ./.github/workflows/get-version.js)"
+    - run: zip -r ./easytable-release.zip module.json easytable.js styles.css
+    - name: Create Release
+      id: create_versioned_release
+      uses: ncipollo/release-action@v1
+      if: endsWith(github.ref, 'master')
+      with:
+        allowUpdates: true
+        name: Release ${{ steps.get-version.outputs.version }}
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './module.json,./easytable-release.zip'
+        tag: latest

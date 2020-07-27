@@ -1,4 +1,7 @@
 Hooks.on("renderSidebarTab", async (app, html) => {
+    if(!game.user.isGM){
+        return;
+    }
     if (app.options.id == "tables") {
         let button = $("<button class='new-easytable'><i class='fas fa-file-csv'></i> New EasyTable</button>")
         let tablePasteMode = game.settings.get("EasyTable", "tablePasteMode");
@@ -79,7 +82,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                                     return;
                                 }
                                 //TODO: Improve settings update
-                                game.settings.set("easytable", "tableSettings", {
+                                game.settings.set("EasyTable", "tableSettings", {
                                     title: 'EasyTable',
                                     description: 'An easy table',
                                     data: `val1${separator}val2${separator}val3`,
@@ -103,7 +106,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
     }
 })
 
-Hooks.on("init", () => {
+Hooks.on("ready", () => {
     let etSettings = {
         title: 'EasyTable',
         description: 'An easy table. Optional {} denotes weight',
@@ -116,7 +119,6 @@ Hooks.on("init", () => {
         config: false,
         default: etSettings
     });
-    game.settings.set("EasyTable", "tableSettings", etSettings);
     game.settings.register("EasyTable", "tablePasteMode", {
         name: "Paste from table mode",
         hint: "Changing this will refresh your page! Import using data copied straight from a table. Each entry should be on its own line. Each entry should begin with the dice number (eg. 1 or 1-3) followed by a space or tab, followed by the entry data",
@@ -128,6 +130,9 @@ Hooks.on("init", () => {
             window.location.reload();
         }
     })
+    if(game.user.isGM){
+        game.settings.set("EasyTable", "tableSettings", etSettings);
+    }
 
 
     //     01–50	Potion of healing
