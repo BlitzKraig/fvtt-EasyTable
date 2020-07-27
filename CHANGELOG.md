@@ -1,3 +1,7 @@
+## 1.2.3 - Tweaked hooks to prevent errors (2020/07/27)
+
+* Cleaned up hooks to stop clients from erroring. Not a fatal issue.
+
 ## 1.2.1 - Improved parsing (2020/06/29)
 
 * Improved the parsing for 'Paste from table mode' data. Now supports line-break based tables.

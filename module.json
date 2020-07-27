@@ -2,7 +2,7 @@
   "name": "EasyTable",
   "title": "EasyTable by Blitz",
   "description": "Creates simple text-based rollable tables from CSV (or any-SV) data",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": "Blitzkraig",
   "scripts": ["./easytable.js"],
   "styles": ["./styles.css"],

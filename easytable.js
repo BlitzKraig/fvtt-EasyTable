@@ -1,3 +1,4 @@
+CONFIG.debug.hooks = true;
 Hooks.on("renderSidebarTab", async (app, html) => {
     if(!game.user.isGM){
         return;
@@ -106,7 +107,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
     }
 })
 
-Hooks.on("ready", () => {
+Hooks.on("canvasInit", () => {
     let etSettings = {
         title: 'EasyTable',
         description: 'An easy table. Optional {} denotes weight',
