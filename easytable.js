@@ -1,4 +1,3 @@
-CONFIG.debug.hooks = true;
 Hooks.on("renderSidebarTab", async (app, html) => {
     if(!game.user.isGM){
         return;
