@@ -153,6 +153,8 @@ Hooks.on("canvasInit", () => {
 
 class EasyTable {
     static async generateTable(title, description, csvData, separator) {
+        
+        
 
         let resultsArray = [];
         let csvElements = csvData.split(separator);
@@ -180,6 +182,16 @@ class EasyTable {
     }
 
     static async generateTablePastedData(title, description, tableData) {
+        
+        
+        var Rows = tableData.split(/\n(?=\d+[-+])/);
+
+        tableData = "";
+
+        Rows.forEach(Row => {
+            Row = Row.replace(/[\n\r]+/g, ' ').replace(/\s{2,}/g, ' ').replace(/^\s+|\s+$/, '');
+            tableData += Row + "\n";
+        });
 
         let resultsArray = [];
         let processed = [];
