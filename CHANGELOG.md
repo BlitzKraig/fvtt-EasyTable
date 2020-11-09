@@ -1,3 +1,7 @@
+## 1.2.5 - Fixed 0.7x compat (2020/11/09)
+
+* Game settings set correctly
+
 ## 1.2.3 - Tweaked hooks to prevent errors (2020/07/27)
 
 * Cleaned up hooks to stop clients from erroring. Not a fatal issue.
