@@ -106,7 +106,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
     }
 })
 
-Hooks.on("canvasInit", () => {
+Hooks.on("init", () => {
     let etSettings = {
         title: 'EasyTable',
         description: 'An easy table. Optional {} denotes weight',
@@ -129,10 +129,7 @@ Hooks.on("canvasInit", () => {
         onChange: value => {
             window.location.reload();
         }
-    })
-    if(game.user.isGM){
-        game.settings.set("EasyTable", "tableSettings", etSettings);
-    }
+    });
 
 
     //     01–50	Potion of healing
