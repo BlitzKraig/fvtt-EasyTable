@@ -1,9 +1,10 @@
-## 1.3.0 - Revival (2021/02/24)
+## 1.2.6 - Minor tweaks (2021/02/24)
 
 * Removed TablePaste Mode
   * Now uses two different buttons to select mode for simplicity
 * Added translation support
 * Set tablepaste dialog resizable
+* Added manifest+ metadata
 
 ## 1.2.5 - Fixed 0.7x compat (2020/11/09)
 
