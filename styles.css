@@ -1,7 +1,4 @@
-
-button.new-easytable {
-    flex-shrink: 1 !important;
-    flex: unset !important;
-    margin: 5px 4px 0px 3px !important;
+span.new-easytable {
+    display: flex;
+    margin: -5px 0px -10px 5px;
 }
-
