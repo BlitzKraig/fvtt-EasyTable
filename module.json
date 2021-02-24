@@ -7,6 +7,13 @@
   "scripts": ["./easytable.js"],
   "styles": ["./styles.css"],
   "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
   "minimumCoreVersion": "0.5.3",
   "compatibleCoreVersion": "0.7.9",
   "url": "https://github.com/BlitzKraig/fvtt-EasyTable",

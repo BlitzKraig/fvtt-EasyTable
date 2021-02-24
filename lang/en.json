@@ -1,0 +1,48 @@
+{
+    "EASYTABLE": {
+        "notif": {
+            "title-required": "EasyTables require a Title",
+            "csv-required": "EasyTables require the CSV Data field to be filled",
+            "tabledata-required": "EasyTables require the Table Data field to be filled",
+            "separator-required": "EasyTables require the Separator field to contain a single character",
+            "table-created": "EasyTable Created:"
+        },
+        "ui": {
+            "button-csv-title": "CSV to Table",
+            "button-tablepaste-title": "TablePaste",
+            "button-header": "EasyTable",
+            "dialog": {
+                "csv": {
+                    "title": "EasyTable from CSV",
+                    "table-title": "Table Title",
+                    "table-description": "Table Description",
+                    "csv-data": "CSV Data",
+                    "csv-data-tooltip": "Paste your CSV data here",
+                    "separator": "Separator",
+                    "separator-tooltip": "Change the separator character",
+                    "button": {
+                        "generate": "Generate",
+                        "cancel": "Cancel"
+                    }
+                },
+                "tablepaste": {
+                    "title": "EasyTable Table Paste Mode",
+                    "table-title": "Table Title",
+                    "table-description": "Table Description",
+                    "table-data": "Table Data - DO NOT include a table header here. Set the title above.",
+                    "table-data-tooltip": "Paste your table data here",
+                    "button": {
+                        "generate": "Generate",
+                        "cancel": "Cancel"
+                    }
+                }
+            }
+        },
+        "settings":{
+            "defaults": {
+                "title": "EasyTable",
+                "description": "An easy table. Optional {} denotes weight"
+            }
+        }
+    }
+}

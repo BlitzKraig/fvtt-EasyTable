@@ -4,7 +4,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
     }
     if (app.options.id == "tables") {
         // -- CSV Mode --
-        let csvButton = $("<button class='new-easytable'><i class='fas fa-file-csv'></i> CSV</button>")
+        let csvButton = $(`<button class='new-easytable'><i class='fas fa-file-csv'></i> ${game.i18n.localize("EASYTABLE.ui.button-csv-title")}</button>`)
         let settings = game.settings.get("EasyTable", "tableSettings")
         let title = settings.title;
         let description = settings.description;
@@ -12,18 +12,18 @@ Hooks.on("renderSidebarTab", async (app, html) => {
         let separator = settings.separator;
         csvButton.click(function () {
             new Dialog({
-                title: "EasyTable from CSV",
+                title: game.i18n.localize("EASYTABLE.ui.dialog.csv.title"),
                 content: `<div>
-         <div class="form-group"><div>Table Title</div><input type='text' name="tableTitle" value="${title}"/></div>
-         <div class="form-group"><div>Table Description</div><input type='text' name="tableDescription" value="${description}"/></div>
-         <div class="form-group" title="Paste your CSV data here"><div>CSV Data</div><textarea name="csv">${csvData}</textarea></div>
-         <div class="form-group" title="Change the separator character"><div>Separator</div><input type='text' name="separator" maxlength="1" value="${separator}"/></div>
+         <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-title")}</div><input type='text' name="tableTitle" value="${title}"/></div>
+         <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-description")}</div><input type='text' name="tableDescription" value="${description}"/></div>
+         <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data")}</div><textarea name="csv">${csvData}</textarea></div>
+         <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator")}</div><input type='text' name="separator" maxlength="1" value="${separator}"/></div>
          <hr/>
         </div>
         `,
                 buttons: {
                     generate: {
-                        label: "Generate",
+                        label: game.i18n.localize("EASYTABLE.ui.dialog.csv.button.generate"),
                         callback: async (html) => {
                             let title = html.find('[name="tableTitle"]').val();
                             let description = html.find('[name="tableDescription"]').val();
@@ -32,14 +32,14 @@ Hooks.on("renderSidebarTab", async (app, html) => {
 
                             //TODO: Notify while dialog is still open, allowing changes
                             if (!title) {
-                                ui.notifications.error("EasyTables require a Title");
+                                ui.notifications.error(game.i18n.localize("EASYTABLE.notif.title-required"));
                                 return;
                             } else if (!csvData) {
-                                ui.notifications.error("EasyTables require the CSV Data field to be filled");
+                                ui.notifications.error(game.i18n.localize("EASYTABLE.notif.csv-required"));
                                 return;
                             } else if (!separator || separator.length > 1) {
                                 //TODO: Restrict this properly
-                                ui.notifications.error("EasyTables require the separator field to contain a single character");
+                                ui.notifications.error(game.i18n.localize("EASYTABLE.notif.separator-required"));
                                 return;
                             }
                             //TODO: Improve settings update
@@ -51,11 +51,11 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                             });
                             await EasyTable.generateTable(title, description, csvData, separator);
 
-                            ui.notifications.notify(`EasyTable ${title} created`);
+                            ui.notifications.notify(`${game.i18n.localize("EASYTABLE.notif.table-created")} ${title}`);
                         }
                     },
                     cancel: {
-                        label: "Cancel"
+                        label: game.i18n.localize("EASYTABLE.ui.dialog.csv.button.cancel")
                     }
                 },
                 default: "generate"
@@ -64,41 +64,40 @@ Hooks.on("renderSidebarTab", async (app, html) => {
         })
 
         // -- Table Paste mode --
-        let tableButton = $("<button class='new-easytable'><i class='fas fa-file-csv'></i> TablePaste</button>");
+        let tableButton = $(`<button class='new-easytable'><i class='fas fa-file-csv'></i> ${game.i18n.localize("EASYTABLE.ui.button-tablepaste-title")}</button>`)
         tableButton.click(function () {
             new Dialog({
-                title: "EasyTable Table Paste Mode",
+                title: game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.title"),
                 content: `<div> 
-                <div class="form-group"><div>Table Title</div><input type='text' name="tableTitle" value="${title}"/></div>
-                <div class="form-group"><div>Table Description</div><input type='text' name="tableDescription" value=""/></div>
-                <div class="form-group" title="Paste your table data here"><div>Table Data - DO NOT include a table header here. Set the title above.</div><textarea name="tableData"></textarea></div>
+                <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-title")}</div><input type='text' name="tableTitle" value="${title}"/></div>
+                <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-description")}</div><input type='text' name="tableDescription" value=""/></div>
+                <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data")}</div><textarea name="tableData"></textarea></div>
                 <hr/>
             </div>
             `,
                 buttons: {
                     generate: {
-                        label: "Generate",
+                        label: game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.button.generate"),
                         callback: async (html) => {
                             let title = html.find('[name="tableTitle"]').val();
                             let description = html.find('[name="tableDescription"]').val();
                             let tableData = html.find('[name="tableData"]').val();
 
-                            //TODO: Notify while dialog is still open, allowing changes
                             if (!title) {
-                                ui.notifications.error("EasyTables require a Title");
+                                ui.notifications.error(game.i18n.localize("EASYTABLE.notif.title-required"));
                                 return;
                             } else if (!tableData) {
-                                ui.notifications.error("EasyTables require the Table Data field to be filled");
+                                ui.notifications.error(game.i18n.localize("EASYTABLE.notif.tabledata-required"));
                                 return;
                             }
 
                             await EasyTable.generateTablePastedData(title, description, tableData);
 
-                            ui.notifications.notify(`EasyTable ${title} created`);
+                            ui.notifications.notify(`${game.i18n.localize("EASYTABLE.notif.table-created")} ${title}`);
                         }
                     },
                     cancel: {
-                        label: "Cancel"
+                        label: game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.button.cancel")
                     }
                 },
                 default: "generate"
@@ -106,7 +105,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
 
         });
 
-        let header = `<span class="new-easytable">EasyTable</span><div class="easytable-actions header-actions action-buttons flexrow">
+        let header = `<span class="new-easytable">${game.i18n.localize("EASYTABLE.ui.button-header")}</span><div class="easytable-actions header-actions action-buttons flexrow">
     </div>`;
         $(header).insertAfter(html.find('.directory-header').find('.header-actions'));
         $('.easytable-actions').append(csvButton).append(tableButton);
@@ -115,8 +114,8 @@ Hooks.on("renderSidebarTab", async (app, html) => {
 
 Hooks.on("init", () => {
     let etSettings = {
-        title: 'EasyTable',
-        description: 'An easy table. Optional {} denotes weight',
+        title: game.i18n.localize("EASYTABLE.settings.default.title"),
+        description: game.i18n.localize("EASYTABLE.settings.default.description"),
         data: 'val1,val2{2},val3',
         separator: ','
     };
