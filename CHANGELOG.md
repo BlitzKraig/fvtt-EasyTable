@@ -2,6 +2,8 @@
 
 * Removed TablePaste Mode
   * Now uses two different buttons to select mode for simplicity
+* Added translation support
+* Set tablepaste dialog resizable
 
 ## 1.2.5 - Fixed 0.7x compat (2020/11/09)
 
