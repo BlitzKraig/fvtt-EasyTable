@@ -11,7 +11,7 @@ jobs:
       shell: bash
       id: get-version
       run: echo "::set-output name=version::$(node ./.github/workflows/get-version.js)"
-    - run: zip -r ./easytable-release.zip module.json easytable.js styles.css lang/
+    - run: zip -r ./easytable-release.zip module.json easytable.js styles.css easytable.png lang/
     - name: Create Release
       id: create_versioned_release
       uses: ncipollo/release-action@v1

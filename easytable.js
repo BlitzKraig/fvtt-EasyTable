@@ -157,7 +157,8 @@ class EasyTable {
             description: description,
             results: resultsArray,
             replacement: true,
-            displayRoll: true
+            displayRoll: true,
+            img: "modules/EasyTable/easytable.png"
         });
         await table.normalize();
     }
@@ -230,7 +231,8 @@ class EasyTable {
             description: description,
             results: resultsArray,
             replacement: true,
-            displayRoll: true
+            displayRoll: true,
+            img: "modules/EasyTable/easytable.png"
         });
         await table.normalize();
     }

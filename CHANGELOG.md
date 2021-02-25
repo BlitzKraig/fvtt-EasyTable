@@ -3,6 +3,7 @@
 * Added 0.8.0 support
   * Rolltable creation has changed slightly. New code should be a little more robust
 * Added BugReporter support
+* Added EasyTable default image
 
 ## 1.2.6 - Minor tweaks (2021/02/24)
 
