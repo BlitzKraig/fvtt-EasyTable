@@ -86,6 +86,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                 <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-title")}</div><input type='text' name="tableTitle" value="${title}"/></div>
                 <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-description")}</div><input type='text' name="tableDescription" value=""/></div>
                 <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data")}</div><textarea name="tableData"></textarea></div>
+                <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.safemode-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.safemode")}</div><input type="checkbox" id="safeMode" name="safeMode"></div>
                 <hr/>
             </div>
             `,
@@ -96,6 +97,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                             let title = html.find('[name="tableTitle"]').val();
                             let description = html.find('[name="tableDescription"]').val();
                             let tableData = html.find('[name="tableData"]').val();
+                            let safeMode = html.find('[name="safeMode"]')[0].checked
 
                             if (!title) {
                                 ui.notifications.error(game.i18n.localize("EASYTABLE.notif.title-required"));
@@ -105,7 +107,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                                 return;
                             }
 
-                            await EasyTable.generateTablePastedData(title, description, tableData);
+                            await EasyTable.generateTablePastedData(title, description, tableData, safeMode);
 
                             ui.notifications.notify(`${game.i18n.localize("EASYTABLE.notif.table-created")} ${title}`);
                         }
@@ -251,7 +253,18 @@ class EasyTable {
         await table.normalize();
     }
 
-    static async generateTablePastedData(title, description, tableData) {
+    static async generateTablePastedData(title, description, tableData, safeMode = false) {
+
+        if(!safeMode){
+            var rows = tableData.split(/\n(?=\d+[-–+\t])/);
+
+            tableData = "";
+
+            rows.forEach(row => {
+                row = row.replace(/[\n\r]+/g, ' ').replace(/\s{2,}/g, ' ').replace(/^\s+|\s+$/, '');
+                tableData += row + "\n";
+            });
+        }
 
         let resultsArray = [];
         let processed = [];

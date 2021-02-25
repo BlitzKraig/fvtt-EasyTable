@@ -33,6 +33,8 @@
                     "table-description": "Table Description",
                     "table-data": "Table Data - DO NOT include a table header here. Set the title above.",
                     "table-data-tooltip": "Paste your table data here",
+                    "safemode":"Enable Safemode?",
+                    "safemode-tooltip":"Enable this if your pasted table isn't generating as expected.",
                     "button": {
                         "generate": "Generate",
                         "cancel": "Cancel"
