@@ -134,18 +134,23 @@ class EasyTable {
 
         let resultsArray = [];
         let csvElements = csvData.split(separator);
+        let rangeIndex = 1;
         csvElements.forEach((csvElement, i) => {
             let [text, weight] = csvElement.split('{');
             if (weight) {
-                weight = weight.split('}')[0];
+                weight = parseInt(weight.split('}')[0]);
             }
-            console.log(weight);
+            if(!weight || weight < 1){
+                weight = 1;
+            }
             resultsArray.push({
                 "type": 0,
                 "text": text,
-                "weight": weight || 1,
+                "weight": weight,
+                "range": [rangeIndex, rangeIndex + (weight - 1)],
                 "drawn": false
             });
+            rangeIndex += weight;
         });
         let table = await RollTable.create({
             name: title,
@@ -162,6 +167,7 @@ class EasyTable {
         let resultsArray = [];
         let processed = [];
         let tableEntries = tableData.split(/[\r\n]+/);
+        let rangeIndex = 1;
         tableEntries.forEach((tableEntry, i) => {
             if (processed[i]) {
                 return;
@@ -206,12 +212,18 @@ class EasyTable {
             if (!text) {
                 text = "TEXT MISSING";
             }
+            if(!weight || weight < 1){
+                weight = 1;
+            }
+            weight = parseInt(weight);
             resultsArray.push({
                 "type": 0,
                 "text": text,
                 "weight": weight || 1,
+                "range": [rangeIndex, rangeIndex + (weight - 1)],
                 "drawn": false
             });
+            rangeIndex += weight;
         });
         let table = await RollTable.create({
             name: title,

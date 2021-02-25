@@ -1,3 +1,8 @@
+## 1.3.0 - Revival (2021/02/25)
+
+* Added 0.8.0 support
+  * Rolltable creation has changed slightly. New code should be a little more robust.
+
 ## 1.2.6 - Minor tweaks (2021/02/24)
 
 * Removed TablePaste Mode
