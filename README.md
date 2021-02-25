@@ -89,7 +89,7 @@ As long as the table has the dice roll in column 1 and the value in column 2, yo
 
 1. Go to the Rollable Tables tab in FVTT, click the New EasyTable button.
 2. Click the TablePaste button
-3. Fill in the table title, description(optional) and copy/paste some data from a table (e.g The random misfortunes table on https://www.5esrd.com/spellcasting/alternate-magic-rules/ritual-magic/#Non-Ritual_Casters)
+3. Fill in the table title, description(optional) and copy/paste some data from a table (e.g The random misfortunes table on <https://www.5esrd.com/spellcasting/alternate-magic-rules/ritual-magic/#Non-Ritual_Casters>)
 4. Generate!
 
 TablePaste does not support Entity Collections
