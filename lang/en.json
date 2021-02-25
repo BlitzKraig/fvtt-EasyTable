@@ -20,6 +20,8 @@
                     "csv-data-tooltip": "Paste your CSV data here",
                     "separator": "Separator",
                     "separator-tooltip": "Change the separator character",
+                    "defaultcollection": "Default Entity",
+                    "defaultcollection-tooltip": "Any untagged entries will be checked against this entity type",
                     "button": {
                         "generate": "Generate",
                         "cancel": "Cancel"

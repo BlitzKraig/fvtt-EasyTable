@@ -13,14 +13,27 @@ Hooks.on("renderSidebarTab", async (app, html) => {
         csvButton.click(function () {
             new Dialog({
                 title: game.i18n.localize("EASYTABLE.ui.dialog.csv.title"),
-                content: `<div>
-         <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-title")}</div><input type='text' name="tableTitle" value="${title}"/></div>
-         <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-description")}</div><input type='text' name="tableDescription" value="${description}"/></div>
-         <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data")}</div><textarea name="csv">${csvData}</textarea></div>
-         <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator")}</div><input type='text' name="separator" maxlength="1" value="${separator}"/></div>
-         <hr/>
-        </div>
-        `,
+                content: `
+                <div>
+                    <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-title")}</div><input type='text' name="tableTitle" value="${title}"/></div>
+                    <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-description")}</div><input type='text' name="tableDescription" value="${description}"/></div>
+                    <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data")}</div><textarea name="csv">${csvData}</textarea></div>
+                    <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator")}</div><input type='text' name="separator" maxlength="1" value="${separator}"/></div>
+                    <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.defaultcollection-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.defaultcollection")}</div>
+                        <select name="defaultcollection" id="defaultcollection">
+                            <option value="Text">Text</option>
+                            <option value="Item">Item</option>
+                            <option value="Actor">Actor</option>
+                            <option value="Scene">Scene</option>
+                            <option value="JournalEntry">JournalEntry</option>
+                            <option value="Macro">Macro</option>
+                            <option value="RollTable">RollTable</option>
+                            <option value="Playlist">Playlist</option>
+                        </select>
+                    </div>
+                    <hr/>
+                </div>
+                `,
                 buttons: {
                     generate: {
                         label: game.i18n.localize("EASYTABLE.ui.dialog.csv.button.generate"),
@@ -29,6 +42,8 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                             let description = html.find('[name="tableDescription"]').val();
                             let csvData = html.find('[name="csv"]').val();
                             let separator = html.find('[name="separator"]').val();
+                            let defaultCollection = html.find('[name="defaultcollection"').val();
+                            console.log(defaultCollection);
 
                             //TODO: Notify while dialog is still open, allowing changes
                             if (!title) {
@@ -42,14 +57,13 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                                 ui.notifications.error(game.i18n.localize("EASYTABLE.notif.separator-required"));
                                 return;
                             }
-                            //TODO: Improve settings update
                             game.settings.set("EasyTable", "tableSettings", {
                                 title: 'EasyTable',
                                 description: 'An easy table',
                                 data: `val1${separator}val2${separator}val3`,
                                 separator: separator || ','
                             });
-                            await EasyTable.generateTable(title, description, csvData, separator);
+                            await EasyTable.generateTable(title, description, csvData, separator, defaultCollection);
 
                             ui.notifications.notify(`${game.i18n.localize("EASYTABLE.notif.table-created")} ${title}`);
                         }
@@ -101,7 +115,9 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                     }
                 },
                 default: "generate"
-            }, {resizable: true}).render(true);
+            }, {
+                resizable: true
+            }).render(true);
 
         });
 
@@ -130,28 +146,100 @@ Hooks.on("init", () => {
 
 
 class EasyTable {
-    static async generateTable(title, description, csvData, separator) {
 
+    static getCollection(collection) {
+        let validCollection = ['Actor', 'Scene', 'Macro', 'Playlist', 'JournalEntry', 'RollTable', 'Item']
+        if (validCollection.includes(collection)) {
+            return collection
+        }
+        return '';
+    }
+
+    static getResultId(collection, text) {
+        let resultId = '';
+        let img = 'icons/svg/d20-black.svg'
+        if (collection == 'Text' || !collection) {
+            return [resultId, img];
+        }
+        let entity;
+        switch (collection) {
+            case 'Actor':
+                    entity = game.actors.getName(text);
+                    resultId = entity?.id||''
+                    img = entity?.img||img;
+                break;
+            case 'Scene':
+                    entity = game.scenes.getName(text);
+                    resultId = entity?.id||''
+                    img = entity?.img||img;
+                break;
+            case 'Macro':
+                    entity = game.macros.getName(text);
+                    resultId = entity?.id||''
+                    img = entity?.data?.img||img;
+                break;
+            case 'Playlist':
+                    entity = game.playlists.getName(text);
+                    resultId = entity?.id||''
+                    // img = entity?.img||img;
+                break;
+            case 'JournalEntry':
+                    entity = game.journal.getName(text);
+                    resultId = entity?.id||''
+                    img = entity?.data?.img||img;
+                break;
+            case 'RollTable':
+                    entity = game.tables.getName(text);
+                    resultId = entity?.id||''
+                    img = entity?.data?.img||img;
+                break;
+            case 'Item':
+                    entity = game.items.getName(text);
+                    resultId = entity?.id||''
+                    img = entity?.img||img;
+                break;
+            default:
+                break;
+        }
+        return [resultId, img];
+    }
+
+    static async generateTable(title, description, csvData, separator, defaultCollection = 'Text') {
         let resultsArray = [];
         let csvElements = csvData.split(separator);
         let rangeIndex = 1;
         csvElements.forEach((csvElement, i) => {
-            let [text, weight] = csvElement.split('{');
-            if (weight) {
-                weight = parseInt(weight.split('}')[0]);
+            let [text, opts] = csvElement.split('{');
+            let weight;
+            let collection = defaultCollection;
+            if (opts) {
+                opts = opts.split('}')[0];
+                [weight, collection] = opts.split('@');
+                weight = parseInt(weight);
             }
-            if(!weight || weight < 1){
+            if (!weight || weight < 1) {
                 weight = 1;
             }
+            let type = 1;
+            let resultCollection = EasyTable.getCollection(collection);
+            let [resultID, img] = EasyTable.getResultId(resultCollection, text);
+            if(!resultID || resultID.length < 1){
+                resultCollection = '';
+                type = 0;
+            }
             resultsArray.push({
-                "type": 0,
+                "type": type,
                 "text": text,
                 "weight": weight,
                 "range": [rangeIndex, rangeIndex + (weight - 1)],
-                "drawn": false
+                "collection": resultCollection,
+                "resultId": resultID,
+                "drawn": false,
+                "img": img
             });
             rangeIndex += weight;
         });
+
         let table = await RollTable.create({
             name: title,
             description: description,
@@ -213,7 +301,7 @@ class EasyTable {
             if (!text) {
                 text = "TEXT MISSING";
             }
-            if(!weight || weight < 1){
+            if (!weight || weight < 1) {
                 weight = 1;
             }
             weight = parseInt(weight);
