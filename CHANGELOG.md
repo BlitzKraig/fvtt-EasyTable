@@ -3,6 +3,8 @@
 * Added Entity types
   * Default entity selected via dropdown
   * Per-entry entity marked in weight brackets (`ItemName{@Item}`, `ItemName{2@Item}`)
+* Added PDF-style input support, based on JackDCondon PR
+  * Added SafeMode toggle to bypass this code in case of errors
 * Added 0.8.0 support
   * Rolltable creation has changed slightly. New code should be a little more robust
 * Added BugReporter support
