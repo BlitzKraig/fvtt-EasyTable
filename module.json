@@ -29,5 +29,7 @@
       "type": "cover",
       "url": "https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/docs/cover.png"
     }
-  ]
+  ],
+  "allowBugReporter": true,
+  "bugs":"https://github.com/BlitzKraig/fvtt-EasyTable/issues"
 }
