@@ -1,3 +1,9 @@
+## 1.3.1 - Export (2021/02/28)
+
+* Added table export to CSV
+  * Right click on any table in the Rolltable directory and select EasyTable Export
+  * Set your separator character, and choose whether to ignore weights and/or entity types
+
 ## 1.3.0 - Revival (2021/02/25)
 
 * Added Entity types

@@ -143,9 +143,20 @@ Hooks.on("init", () => {
         config: false,
         default: etSettings
     });
+
+    const base = RollTableDirectory.prototype._getEntryContextOptions;
+    RollTableDirectory.prototype._getEntryContextOptions = function () {
+        const entries = game.user.isGM ? base.call(this) : [];
+        entries.push({
+            name: game.i18n.localize('EASYTABLE.ui.context.export'),
+            icon: '<i class="fas fa-file-csv"></i>',
+            condition: game.user.isGM,
+            callback: EasyTable.exportTableToCSV,
+            
+        });
+        return entries;
+    };
 });
-
-
 
 class EasyTable {
 
@@ -336,5 +347,95 @@ class EasyTable {
             img: "modules/EasyTable/easytable.png"
         });
         await table.normalize();
+    }
+
+    static async exportTableToCSV(li) {
+
+        let {separator, skipWeight, skipCollection} = await new Promise((resolve) => {
+            new Dialog({
+                title: game.i18n.localize('EASYTABLE.ui.dialog.export.separator.title'),
+                content: `<table style="width:100%"><tr><th style="width:50%"><label>${game.i18n.localize('EASYTABLE.ui.dialog.export.separator.prompt')}</label></th><td style="width:50%"><input type="text" maxlength="1" size="1" value="," name="separator"/></td></tr>
+                <tr><th style="width:50%"><label>${game.i18n.localize('EASYTABLE.ui.dialog.export.separator.skip-weight')}</label></th><td style="width:50%"><input type="checkbox" id="skipWeight" name="skipWeight"></td></tr>
+                <tr><th style="width:50%"><label>${game.i18n.localize('EASYTABLE.ui.dialog.export.separator.skip-collection')}</label></th><td style="width:50%"><input type="checkbox" id="skipCollection" name="skipCollection"></td></tr>
+                </table>`,
+                buttons: {
+                    Ok: {
+                        label: game.i18n.localize('EASYTABLE.ui.dialog.export.separator.button-ok'),
+                        callback: (html) => {
+                            resolve({separator:html.find("[name='separator']").val(), skipWeight:html.find("[name='skipWeight']")[0].checked,skipCollection:html.find("[name='skipCollection']")[0].checked});
+                        }
+                    }
+                }
+            }).render(true);
+        });
+        if (!separator) {
+            separator = ',';
+        }
+        let results = game.tables.get(li.data("entityId")).data.results
+        let output = '';
+        let index = 0;
+        let separatorIssue = false;
+        for (let result of results) {
+            let {
+                weight,
+                text,
+                type,
+                collection
+            } = result;
+            // If an entry is empty, ensure it has a blank string, and remove the entity link
+            if(!text){
+                text = '';
+                type = 0;
+            }
+            // Mark issues with chosen separator
+            if(text.indexOf(separator) > -1){
+                separatorIssue = true;
+            }
+            output += text;
+
+            // Handle skips
+            if(skipWeight){
+                weight = 1;
+            }
+            if(skipCollection){
+                type = 0;
+            }
+
+            if (weight > 1) {
+                output += `{${weight}${type==1&&collection?`@${collection}`:''}}`
+            } else if (type == 1 && collection) {
+                output += `{@${collection}}`;
+            }
+            if (++index <= results.length - 1) {
+                output += separator;
+            }
+        }
+        new Dialog({
+            title: game.i18n.localize('EASYTABLE.ui.dialog.export.output.title'),
+            content: `${separatorIssue?
+                `<h3 style="color:#ff0000">
+                ${game.i18n.localize('EASYTABLE.ui.dialog.export.output.separator-issue-head')}
+                </h3>
+                <p>
+                ${game.i18n.localize('EASYTABLE.ui.dialog.export.output.separator-issue-hint')}
+                </p>`
+                :
+                `<h2>
+                ${game.i18n.localize('EASYTABLE.ui.dialog.export.output.separator-issue-none')}
+                </h2>`}
+                <textarea style="height:300px">${output.trim()}</textarea>`,
+            buttons: {
+                Copy: {
+                    label: game.i18n.localize('EASYTABLE.ui.dialog.export.output.button-copy'),
+                    callback: (html) => {
+                        html.find('textarea').select();
+                        document.execCommand('copy');
+                    }
+                },
+                Close: {
+                    label: game.i18n.localize('EASYTABLE.ui.dialog.export.output.button-close')
+                }
+            }
+        }).render(true);
     }
 }

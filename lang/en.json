@@ -39,7 +39,27 @@
                         "generate": "Generate",
                         "cancel": "Cancel"
                     }
+                },
+                "export": {
+                    "separator": {
+                        "title": "EasyTable Export",
+                        "prompt": "Export with Separator",
+                        "skip-weight": "Ignore Weights", 
+                        "skip-collection": "Ignore Entity Types",
+                        "button-ok": "OK"
+                    },
+                    "output": {
+                        "title": "EasyTable Export Complete",
+                        "separator-issue-head": "Your chosen separator was found in some results. Your table might not import correctly.",
+                        "separator-issue-hint": "Try using another separator that doesn't appear in the text, like a vertical pipe `|`",
+                        "separator-issue-none": "No issues found during export",
+                        "button-copy": "Copy",
+                        "button-close": "Close"
+                    }
                 }
+            },
+            "context": {
+                "export": "Export EasyTable"
             }
         },
         "settings":{
