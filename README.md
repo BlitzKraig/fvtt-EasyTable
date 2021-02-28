@@ -96,6 +96,14 @@ TablePaste does not support Entity Collections
 
 Weighting is handled automatically in TablePaste mode, using the dice roll column
 
+## Exporting Tables to CSV
+
+EasyTable can export any table to CSV, including a customisable separator, optional weights and entity types, ready to be edited externally or re-imported with EasyTable.
+
+Simply right click a table in your tables directory and choose Export EasyTable, then follow the instructions.
+
+Note that the export function does not export the title or the description, just the data inside the table.
+
 ## Manifest
 
 `https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/module.json`
