@@ -1,3 +1,6 @@
+## 1.3.2 - Compat (2021/05/22)
+* Updated version compat to 0.8.5
+
 ## 1.3.1 - Export (2021/02/28)
 
 * Added table export to CSV
