@@ -33,6 +33,18 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './module.json,./easytable-release.zip'
         tag: latest
+    - name: Delete Tag
+      continue-on-error: true
+      uses: actions/github-script@v3
+      if: endsWith(github.ref, 'master')
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.git.deleteRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: "refs/tags/${{ steps.get-version.outputs.version }}"
+          });
     - name: Create Tag
       uses: actions/github-script@v3
       if: endsWith(github.ref, 'master')
