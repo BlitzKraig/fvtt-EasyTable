@@ -5,6 +5,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: endsWith(github.ref, 'master')
     steps:
     - uses: actions/checkout@v2
     - name: Get Version
@@ -12,31 +13,9 @@ jobs:
       id: get-version
       run: echo "::set-output name=version::$(node ./.github/workflows/get-version.js)"
     - run: zip -r ./easytable-release.zip module.json easytable.js styles.css easytable.png lang/
-    - name: Delete Release
-      id: delete_tag_release
-      uses: dev-drprasad/delete-tag-and-release@v0.2.0
-      if: endsWith(github.ref, 'master')
-      with:
-        delete_release: true
-        tag_name: latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Create Release
-      id: create_versioned_release
-      uses: ncipollo/release-action@v1
-      if: endsWith(github.ref, 'master')
-      with:
-        allowUpdates: true
-        name: Release ${{ steps.get-version.outputs.version }}
-        draft: false
-        prerelease: false
-        token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json,./easytable-release.zip'
-        tag: latest
     - name: Delete Tag
       continue-on-error: true
       uses: actions/github-script@v3
-      if: endsWith(github.ref, 'master')
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -47,7 +26,6 @@ jobs:
           });
     - name: Create Tag
       uses: actions/github-script@v3
-      if: endsWith(github.ref, 'master')
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -57,3 +35,22 @@ jobs:
             ref: "refs/tags/${{ steps.get-version.outputs.version }}",
             sha: context.sha
           })
+    - name: Delete Release
+      id: delete_tag_release
+      uses: dev-drprasad/delete-tag-and-release@v0.2.0
+      with:
+        delete_release: true
+        tag_name: latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create Release
+      id: create_versioned_release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        name: Release ${{ steps.get-version.outputs.version }}
+        draft: false
+        prerelease: false
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './module.json,./easytable-release.zip'
+        tag: latest
