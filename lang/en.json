@@ -2,22 +2,22 @@
     "EASYTABLE": {
         "notif": {
             "title-required": "EasyTables require a Title",
-            "csv-required": "EasyTables require the CSV Data field to be filled",
+            "csv-required": "EasyTables require the Values field to be filled",
             "tabledata-required": "EasyTables require the Table Data field to be filled",
             "separator-required": "EasyTables require the Separator field to contain a single character",
             "table-created": "EasyTable Created:"
         },
         "ui": {
-            "button-csv-title": "CSV to Table",
+            "button-csv-title": "Values to Table",
             "button-tablepaste-title": "TablePaste",
             "button-header": "EasyTable",
             "dialog": {
                 "csv": {
-                    "title": "EasyTable from CSV",
+                    "title": "EasyTable from Values",
                     "table-title": "Table Title",
                     "table-description": "Table Description",
-                    "csv-data": "CSV Data",
-                    "csv-data-tooltip": "Paste your CSV data here",
+                    "csv-data": "Values",
+                    "csv-data-tooltip": "Paste your values here, separated by the Separator character",
                     "separator": "Separator",
                     "separator-tooltip": "Change the separator character",
                     "defaultcollection": "Default Entity",
