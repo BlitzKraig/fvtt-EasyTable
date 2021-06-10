@@ -132,8 +132,8 @@ Hooks.on("renderSidebarTab", async (app, html) => {
 
 Hooks.on("init", () => {
     let etSettings = {
-        title: game.i18n.localize("EASYTABLE.settings.default.title"),
-        description: game.i18n.localize("EASYTABLE.settings.default.description"),
+        title: game.i18n.localize("EASYTABLE.settings.defaults.title"),
+        description: game.i18n.localize("EASYTABLE.settings.defaults.description"),
         data: 'val1,val2{2},val3',
         separator: ','
     };
