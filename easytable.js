@@ -381,7 +381,7 @@ class EasyTable {
                 text,
                 type,
                 collection
-            } = result;
+            } = result.data;
             // If an entry is empty, ensure it has a blank string, and remove the entity link
             if(!text){
                 text = '';
@@ -406,7 +406,7 @@ class EasyTable {
             } else if (type == 1 && collection) {
                 output += `{@${collection}}`;
             }
-            if (++index <= results.length - 1) {
+            if (++index <= results.size - 1) {
                 output += separator;
             }
         }
