@@ -2,3 +2,7 @@ span.new-easytable {
     display: flex;
     margin: -5px 0px -10px 5px;
 }
+
+.easytable-textarea {
+    color: unset;
+}

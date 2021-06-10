@@ -3,7 +3,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
         return;
     }
     if (app.options.id == "tables") {
-        // -- CSV Mode --
+        // -- Values Mode --
         let csvButton = $(`<button class='new-easytable'><i class='fas fa-file-csv'></i> ${game.i18n.localize("EASYTABLE.ui.button-csv-title")}</button>`)
         let settings = game.settings.get("EasyTable", "tableSettings")
         let title = settings.title;
@@ -17,7 +17,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                 <div>
                     <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-title")}</div><input type='text' name="tableTitle" value="${title}"/></div>
                     <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.table-description")}</div><input type='text' name="tableDescription" value="${description}"/></div>
-                    <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data")}</div><textarea name="csv">${csvData}</textarea></div>
+                    <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.csv-data")}</div><textarea class="easytable-textarea" name="csv">${csvData}</textarea></div>
                     <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.separator")}</div><input type='text' name="separator" maxlength="1" value="${separator}"/></div>
                     <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.csv.defaultcollection-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.csv.defaultcollection")}</div>
                         <select name="defaultcollection" id="defaultcollection">
@@ -85,7 +85,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
                 content: `<div> 
                 <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-title")}</div><input type='text' name="tableTitle" value="${title}"/></div>
                 <div class="form-group"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-description")}</div><input type='text' name="tableDescription" value=""/></div>
-                <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data")}</div><textarea name="tableData"></textarea></div>
+                <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.table-data")}</div><textarea class="easytable-textarea" name="tableData"></textarea></div>
                 <div class="form-group" title="${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.safemode-tooltip")}"><div>${game.i18n.localize("EASYTABLE.ui.dialog.tablepaste.safemode")}</div><input type="checkbox" id="safeMode" name="safeMode"></div>
                 <hr/>
             </div>
@@ -423,7 +423,7 @@ class EasyTable {
                 `<h2>
                 ${game.i18n.localize('EASYTABLE.ui.dialog.export.output.separator-issue-none')}
                 </h2>`}
-                <textarea style="height:300px">${output.trim()}</textarea>`,
+                <textarea class="easytable-textarea" style="height:300px">${output.trim()}</textarea>`,
             buttons: {
                 Copy: {
                     label: game.i18n.localize('EASYTABLE.ui.dialog.export.output.button-copy'),
