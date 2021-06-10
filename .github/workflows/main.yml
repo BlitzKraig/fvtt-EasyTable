@@ -43,7 +43,7 @@ jobs:
           github.git.deleteRef({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            ref: "refs/tags/${{ steps.get-version.outputs.version }}"
+            ref: "tags/${{ steps.get-version.outputs.version }}"
           });
     - name: Create Tag
       uses: actions/github-script@v3
