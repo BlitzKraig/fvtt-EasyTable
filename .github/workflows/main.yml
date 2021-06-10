@@ -33,3 +33,15 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './module.json,./easytable-release.zip'
         tag: latest
+    - name: Create tag
+      uses: actions/github-script@v3
+      if: endsWith(github.ref, 'master')
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: "refs/tags/${{ steps.get-version.outputs.version }}",
+            sha: context.sha
+          })
