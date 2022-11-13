@@ -1,5 +1,5 @@
 {
-  "name": "EasyTable",
+  "id": "EasyTable",
   "title": "EasyTable by Blitz",
   "description": "Creates simple text-based rollable tables from CSV (or any-SV) data",
   "version": "1.3.4",
