@@ -2,7 +2,7 @@ Hooks.on("renderSidebarTab", async (app, html) => {
     if (!game.user.isGM) {
         return;
     }
-    if (app.options.id == "tables") {
+    if (app.options.classes[2] == "tables-sidebar") {
         // -- Values Mode --
         let csvButton = $(`<button class='new-easytable'><i class='fas fa-file-csv'></i> ${game.i18n.localize("EASYTABLE.ui.button-csv-title")}</button>`)
         let settings = game.settings.get("EasyTable", "tableSettings")
