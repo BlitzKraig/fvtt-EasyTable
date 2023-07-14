@@ -106,7 +106,7 @@ Note that the export function does not export the title or the description, just
 
 ## Manifest
 
-`[https://raw.githubusercontent.com/BlitzKraig/fvtt-EasyTable/master/module.json](https://raw.githubusercontent.com/Q-efx/fvtt-EasyTable/master/module.json)`
+`https://raw.githubusercontent.com/Q-efx/fvtt-EasyTable/master/module.json`
 
 ## Feedback
 
