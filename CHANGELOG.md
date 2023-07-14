@@ -1,3 +1,6 @@
+## 1.3.5 - Compat (2021/05/22)
+* Updated for Foundry VTT V11
+
 ## 1.3.2 - Compat (2021/05/22)
 * Updated version compat to 0.8.5
 
