@@ -83,13 +83,13 @@ The resulting table will contain fully linked references to the `Greatsword` and
 
 ## Method 2 - TablePaste Input
 
-TablePate input is designed to allow you to copy and paste data from tables in digital sourcebooks, or from the web.
+TablePaste input is designed to allow you to copy and paste data from tables in digital sourcebooks, or from the web.
 
-As long as the table has the dice roll in column 1 and the value in column 2, you should be able to highlight and copy all of the values to use with EasyTable
+As long as the table has the dice roll in column 1 and the value in column 2, you should be able to highlight and copy all values to use with EasyTable
 
 1. Go to the Rollable Tables tab in FVTT, click the New EasyTable button.
 2. Click the TablePaste button
-3. Fill in the table title, description(optional) and copy/paste some data from a table (e.g The random misfortunes table on <https://www.5esrd.com/spellcasting/alternate-magic-rules/ritual-magic/#Non-Ritual_Casters>)
+3. Fill in the table title, description(optional) and copy/paste some data from a table (e.g. The random misfortunes table on <https://www.5esrd.com/spellcasting/alternate-magic-rules/ritual-magic/#Non-Ritual_Casters>)
 4. Generate!
 
 TablePaste does not support Entity Collections
@@ -98,9 +98,9 @@ Weighting is handled automatically in TablePaste mode, using the dice roll colum
 
 ## Exporting Tables to CSV
 
-EasyTable can export any table to CSV, including a customisable separator, optional weights and entity types, ready to be edited externally or re-imported with EasyTable.
+EasyTable can export any table to CSV, including a customizable separator, optional weights and entity types, ready to be edited externally or re-imported with EasyTable.
 
-Simply right click a table in your tables directory and choose Export EasyTable, then follow the instructions.
+Simply right-click a table in your tables directory and choose Export EasyTable, then follow the instructions.
 
 Note that the export function does not export the title or the description, just the data inside the table.
 
