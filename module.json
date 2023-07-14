@@ -24,7 +24,7 @@
     "maximum": 11
   },
   "url": "https://github.com/lichenthropic/fvtt-EasyTable",
-  "manifest": "https://raw.githubusercontent.com/lichenthropic/fvtt-EasyTable/master/module.json",
+  "manifest": "https://raw.githubusercontent.com/Q-efx/fvtt-EasyTable/master/module.json",
   "download": "https://github.com/lichenthropic/fvtt-EasyTable/releases/download/latest/easytable-release.zip",
   "manifestPlusVersion": "1.0.0",
   "media": [
