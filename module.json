@@ -25,7 +25,7 @@
   },
   "url": "https://github.com/lichenthropic/fvtt-EasyTable",
   "manifest": "https://raw.githubusercontent.com/Q-efx/fvtt-EasyTable/master/module.json",
-  "download": "https://github.com/Q-efx/fvtt-EasyTable/releases/download/untagged-a7303d11eeeeae3ac944/fvtt-EasyTable-master.zip",
+  "download": "https://github.com/Q-efx/fvtt-EasyTable/releases/download/latest/fvtt-EasyTable-master.zip",
   "manifestPlusVersion": "1.0.0",
   "media": [
     {
